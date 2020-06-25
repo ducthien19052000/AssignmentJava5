@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="header--sidebar"></div>
+    <header class="header">
+        <div class="header__top">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12 ">
+                        <p>460 West 34th Street, 15th floor, New York  -  Hotline: 804-377-3580 - 804-399-3580</p>
+                    </div>
+                    <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
+                        <th:block th:if="${session.user==null}">
+                            <div class="header__actions"><a th:href="@{/login}">Login & Regiser</a>
+
+                            </div>
+                        </th:block>
+                        <th:block th:unless="${session.user==null}">
+                            <div class="header__actions">
+                                <a th:href="@{/info}" >
+                                    <span th:text="'Xin chào :'+${session.user.userName}"/>
+                                </a>
+                                <a th:href="@{/logout}">
+                                    <span>Đăng xuất</span>
+                                </a>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <nav class="navigation">
+            <div class="container-fluid">
+                <div class="navigation__column left">
+                    <div class="header__logo"><a class="ps-logo" th:href="@{/}"><img src="images/logo.png" alt=""></a></div>
+                </div>
+                <div class="navigation__column center">
+                    <ul class="main-menu menu">
+                        <li ><a id="openHomePage" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="menu-item menu-item-has-children dropdown"><a  th:href="@{/product}">Category</a>
+                            <ul class="sub-menu">
+                                <li class="menu-item" th:each="cate :${category}"><a id="categoryPage" th:href="@{/category/{categoryId}(categoryId = ${cate.categoryId})}" th:text="${cate.categoryName}"></a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navigation__column right">
+                    <form class="ps-search--header" action="do_action" method="post">
+                        <input class="form-control" type="text" placeholder="Search Product…">
+                        <button><i class="ps-icon-search"></i></button>
+                    </form>
+                    <div class="ps-cart"><a class="ps-cart__toggle" id="openCartPage" th:href="@{/cart}"><span th:if="${session.myCartNum}"><i th:text="${session.myCartNum}"></i></span><i class="ps-icon-shopping-cart"></i></a>
+                        <div class="ps-cart__listing">
+                            <div class="ps-cart__content">
+                                <div class="ps-cart-item" th:each="carts :${session.cart}">
+                                    <a class="ps-cart-item__close" th:href="@{/remove/{productId}(productId = ${carts.product.productId})}"></a>
+                                    <div class="ps-cart-item__thumbnail"><a href="product-detail.html"></a><img th:src="@{images/access/{image}(image=${carts.product.productImg1})}" alt=""></div>
+                                    <div class="ps-cart-item__content"><a class="ps-cart-item__title" href="product-detail.html" th:text="${carts.product.productName}+' Size '+${carts.size.sizeName}"></a>
+                                        <p><span>Quantity:<i th:text="${carts.quantity}"></i></span><span>Total:<i  th:text="${#numbers.formatInteger((carts.product.productPrice -carts.product.getProductPrice()/100*carts.product.productSale)*carts.quantity,0,'COMMA')} +' VNĐ'"></i></span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="ps-cart__total">
+                                <p>Total:<span th:text="${#numbers.formatInteger(session.myCartTotal,0,'COMMA')}+'VNĐ'" th:if="${session.myCartTotal}"></span></p>
+                            </div>
+                            <div class="ps-cart__footer"><a class="ps-btn"th:href="@{/checkout}">Check out<i class="ps-icon-arrow-left"></i></a></div>
+                        </div>
+                    </div>
+                    <div class="menu-toggle"><span></span></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="header-services">
+        <div class="ps-services owl-slider" data-owl-auto="true" data-owl-loop="true" data-owl-speed="7000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="false" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+            <p class="ps-service"><i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Sky Store</p>
+            <p class="ps-service"><i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Sky Store</p>
+            <p class="ps-service"><i class="ps-icon-delivery"></i><strong>Free delivery</strong>: Get free standard delivery on every order with Sky Store</p>
+        </div>
+    </div>
+</body>
+</html>

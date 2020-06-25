@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v1 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="cssregister/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="cssregister/css/style.css">
+</head>
+
+<body>
+<div class="wrapper" style="background-image: url('cssregister/images/bg-registration-form-1.jpg');">
+    <div class="inner">
+        <div class="image-holder">
+            <img src="cssregister/images/registration-form-1.jpg" alt="">
+        </div>
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <h3>Registration Form</h3>
+            <h6 style="color: red; padding-bottom: 30px" th:if="${param.emailError}">Email của bạn đã được sử
+                dụng !</h6>
+            <h6 style="color: red; padding-bottom: 30px" th:if="${param.nullValue}">Không được để trống !</h6>
+            <div class="form-wrapper">
+                <input type="text" th:field="*{userName}" placeholder="Name" class="form-control">
+            </div>
+            <div class="form-wrapper">
+                <input type="text" th:field="*{email}" placeholder="Email Address" class="form-control">
+                <i class="zmdi zmdi-email"></i>
+                <h6 style="color: red;" th:if="${param.emailFormat}">Sai định dạng email !</h6>
+            </div>
+            <div class="form-wrapper">
+                <input type="text"th:field="*{address}" placeholder="Address" class="form-control">
+            </div>
+            <div class="form-wrapper">
+                <input type="text" th:field="*{phone}" placeholder="Phone" class="form-control">
+                <h6 style="color: red;" th:if="${param.phoneFormat}">Sai định dạng số điện thoại!</h6>
+            </div>
+            <div class="form-wrapper">
+                <input type="password" th:field="*{password}" placeholder="Password" class="form-control">
+                <i class="zmdi zmdi-lock"></i>
+            </div>
+            <button type="submit">Register
+                <i class="zmdi zmdi-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>RegistrationForm_v1 by Colorlib</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet" href="cssregister/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="cssregister/css/style.css">
+</head>
+
+<body>
+<div class="wrapper" style="background-image: url('cssregister/images/bg-registration-form-1.jpg');">
+    <div class="inner">
+        <div class="image-holder">
+            <img src="cssregister/images/registration-form-1.jpg" alt="">
+        </div>
+        <form th:action="@{/verifyAccount}" method="post">
+            <h3>Mã xác nhận </h3>
+            <h6 style="color: red;" th:if="${param.checkCodeFormat}">Sai định dạng số điện thoại!</h6>
+            <div class="form-wrapper">
+                <input type="text" name="checkRegister" placeholder="Mã xác nhận" class="form-control">
+
+            </div>
+            <button type="submit">Xác nhận
+                <i class="zmdi zmdi-arrow-right"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
